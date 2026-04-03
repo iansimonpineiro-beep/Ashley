@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carta Para Ti ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c94b7d 50%, #ff6b9d 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Background hearts */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(45deg);
+            animation: float 15s infinite;
+            filter: blur(2px);
+        }
+
+        .bg-heart::before,
+        .bg-heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .bg-heart::before {
+            left: -15px;
+        }
+
+        .bg-heart::after {
+            top: -15px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(45deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(45deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 107, 157, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 28px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            padding: 120px 40px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        /* Letter container */
+        .letter-container {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Decorative corner hearts */
+        .corner-decoration {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .corner-decoration.top-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        .corner-decoration.top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        .corner-decoration.bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        /* Letter header */
+        .letter-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #ff6b9d;
+        }
+
+        .letter-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            color: #ff6b9d;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .letter-subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Letter content */
+        .letter-content {
+            line-height: 2;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .letter-content p {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .letter-content p:first-letter {
+            font-size: 36px;
+            font-family: 'Dancing Script', cursive;
+            color: #ff6b9d;
+            font-weight: 700;
+            float: left;
+            line-height: 1;
+            margin-right: 5px;
+        }
+
+        .letter-content .highlight {
+            color: #ff6b9d;
+            font-weight: 600;
+        }
+
+        /* Letter signature */
+        .letter-signature {
+            margin-top: 50px;
+            text-align: right;
+        }
+
+        .signature-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #ff6b9d;
+            margin-bottom: 10px;
+        }
+
+        .signature-date {
+            font-size: 16px;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Floating hearts decoration */
+        .floating-hearts {
+            position: absolute;
+            top: 50%;
+            left: -30px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 0.3;
+        }
+
+        .floating-hearts.right {
+            left: auto;
+            right: -30px;
+        }
+
+        .floating-heart {
+            font-size: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-heart:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .floating-heart:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Edit instruction */
+        .edit-instruction {
+            background: #fff3f7;
+            border-left: 4px solid #ff6b9d;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+
+        .edit-instruction h3 {
+            color: #ff6b9d;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .edit-instruction p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .edit-instruction code {
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #ff6b9d;
+            font-family: monospace;
+            border: 1px solid #ffd4e3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 20px 40px;
+            }
+
+            .letter-container {
+                padding: 40px 30px;
+            }
+
+            .letter-title {
+                font-size: 36px;
+            }
+
+            .letter-subtitle {
+                font-size: 20px;
+            }
+
+            .letter-content {
+                font-size: 16px;
+            }
+
+            .floating-hearts {
+                display: none;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background hearts -->
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Para Ti ❤️</div>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="fotos.html">Fotos</a></li>
+            <li><a href="carta.html">Carta</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main container -->
+    <div class="container">
+        <div class="letter-container">
+            <!-- Corner decorations -->
+            <div class="corner-decoration top-left">💕</div>
+            <div class="corner-decoration top-right">💕</div>
+            <div class="corner-decoration bottom-left">💕</div>
+            <div class="corner-decoration bottom-right">💕</div>
+
+            <!-- Floating hearts -->
+            <div class="floating-hearts">
+                <div class="floating-heart">❤️</div>
+                <div class="floating-heart">💖</div>
+                <div class="floating-heart">💗</div>
+            </div>
+            <div class="floating-hearts right">
+                <div class="floating-heart">💕</div>
+                <div class="floating-heart">💓</div>
+                <div class="floating-heart">💝</div>
+            </div>
+
+            <!-- Letter header -->
+            <div class="letter-header">
+                <h1 class="letter-title">Para el Amor de Mi Vida</h1>
+                <p class="letter-subtitle">Una carta desde el corazón</p>
+            </div>
+
+            <!-- Letter content -->
+            <div class="letter-content">
+                <p>
+                    Hoy es San Valentín Ashely, pero la verdad es que cualquier día del año sería perfecto para decirte lo que siento por ti. Aun así, me gusta que exista una fecha especial para recordarte, sin distracciones lo importante que eres en mi vida.
+                </p>
+
+                <p>
+                    Desde que llegaste, soy mas feliz. Las cosas pequeñas se volvieron grandes, y los días normales se sienten especiales solo porque sé que esta en mi vida. <span class="highlight">Me encanta tu forma de ser, tu sonrisa, tu manera de pensar, y esos detalles tuyos que quizás ni tú notas pero que para mí son únicos.</span>
+                </p>
+
+                <p>
+                    Quiero que sepas que <span class="highlight">te amo</span>. Y quiero decirte que, gracias por cada conversación, cada risa, cada momento compartido y hasta por los silencios cómodos. Contigo aprendí que el amor no solo se dice — se demuestra, se cuida y se construye día a día.
+                </p>
+
+                <p>
+                    Este día especial es solo una pequeña muestra de todo lo que significas para mí. Espero poder demostrártelo cada día del resto de nuestras vidas, porque estar contigo es mi mayor felicidad.
+                </p>
+
+                <p>
+                    Te amaré siempre, hoy, mañana y por toda la eternidad.
+                </p>
+
+                <!-- Signature -->
+                <div class="letter-signature">
+                    <p class="signature-text">Con todo mi amor,</p>
+                    <p class="signature-text">Tu amorcito 💕</p>
+                    <p class="signature-date">San Valentín 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create background hearts
+        const bgHearts = document.getElementById('bgHearts');
+        for (let i = 0; i < 35; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'bg-heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 15 + 's';
+            heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+            
+            // Vary sizes and opacity for depth
+            const size = 20 + Math.random() * 20;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.opacity = 0.15 + Math.random() * 0.25;
+            
+            bgHearts.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
